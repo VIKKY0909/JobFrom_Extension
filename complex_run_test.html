@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complex Framework Test (React/iframe Simulation)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 300px;
+            border: 1px solid #404040;
+        }
+
+        h2 {
+            color: #61dafb;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #4caf50;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            background: #333;
+            border: 1px solid #555;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .state-display {
+            background: #111;
+            padding: 10px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #ce9178;
+            border-radius: 4px;
+            min-height: 60px;
+        }
+
+        .iframe-container {
+            width: 100%;
+            height: 350px;
+            border: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 style="text-align: center;">Complex Framework Simulation</h1>
+    <p style="text-align: center; color: #888;">Test React-style state tracking and Iframe support behavior.</p>
+
+    <div class="container">
+
+        <!-- REACT SIMULATION CARD -->
+        <div class="card">
+            <h2>React Simulation</h2>
+            <p style="font-size: 13px;">These inputs simulate React "Controlled Components". Direct <code>.value</code>
+                assignment will fail to update the "Virtual State" below unless correct events (input/change) are fired.
+            </p>
+
+            <label>Full Name (React Controlled)</label>
+            <input type="text" id="reactName" data-testid="fullname-input" placeholder="Enter full name...">
+
+            <label>Email (React Controlled)</label>
+            <input type="email" id="reactEmail" name="email" placeholder="Enter email...">
+
+            <h3>Virtual DOM State:</h3>
+            <div class="state-display" id="reactState">
+                { name: "", email: "" }
+            </div>
+
+            <p id="reactStatus" style="font-size: 12px; color: #ff6b6b; margin-top: 5px;">State not updated yet.</p>
+        </div>
+
+        <!-- IFRAME SIMULATION CARD -->
+        <div class="card">
+            <h2>Iframe Support (ATS)</h2>
+            <p style="font-size: 13px;">Simulating an embedded application form (e.g., Workday/Greenhouse embedded in a
+                career site).</p>
+            <iframe srcdoc='
+                <html>
+                <body style="background: #f0fdf4; padding: 20px; font-family: sans-serif;">
+                    <h3 style="color: #166534; margin-top: 0;">Embedded Form (Inside Iframe)</h3>
+                    <label style="display:block; font-size: 12px; font-weight: bold;">Phone Number</label>
+                    <input type="tel" name="phone" style="width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;" placeholder="+1...">
+                    
+                    <label style="display:block; margin-top: 10px; font-size: 12px; font-weight: bold;">Skills</label>
+                    <textarea name="skills" rows="3" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                </body>
+                </html>
+            ' class="iframe-container"></iframe>
+        </div>
+
+    </div>
+
+    <script>
+        // --- SIMPLE REACT STATE SIMULATION ---
+        const state = { name: "", email: "" };
+        const display = document.getElementById('reactState');
+        const status = document.getElementById('reactStatus');
+
+        function updateState(key, value) {
+            state[key] = value;
+            display.textContent = JSON.stringify(state, null, 2);
+
+            if (state.name && state.email) {
+                status.textContent = "✔ State successfully updated! (React logic passed)";
+                status.style.color = "#4caf50";
+            }
+        }
+
+        // Bind events - React relies on 'input' or 'change' bubbles
+        const nameInput = document.getElementById('reactName');
+        const emailInput = document.getElementById('reactEmail');
+
+        nameInput.addEventListener('input', (e) => updateState('name', e.target.value));
+        emailInput.addEventListener('input', (e) => updateState('email', e.target.value));
+
+        // Note: Use a MutationObserver or setter override if we really wanted to be strict,
+        // but checking for the 'input' event is sufficient to prove the extension triggers events.
+    </script>
+</body>
+
+</html>

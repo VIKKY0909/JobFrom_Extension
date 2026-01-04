@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobFill</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- MAIN VIEW -->
+    <div id="view-home" class="view">
+      <header>
+        <div class="header-top">
+          <h1>JobFill</h1>
+          <button id="btn-settings" class="icon-btn" title="Edit Profile">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg>
+          </button>
+        </div>
+        <p class="subtitle">Smart Autofill</p>
+      </header>
+
+      <main>
+        <div class="status-container">
+          <div class="status" id="status-msg">Ready to fill</div>
+        </div>
+        <button id="autofill-btn" class="c-button primary">
+          <span class="c-button__label">Autofill Form</span>
+        </button>
+      </main>
+
+      <footer>
+        <p>Powered by JobFill v1.0</p>
+      </footer>
+    </div>
+
+    <!-- EDIT PROFILE VIEW -->
+    <div id="view-edit" class="view hidden">
+      <header>
+        <div class="header-top">
+          <button id="btn-back" class="icon-btn" title="Back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5" />
+              <path d="M12 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <h2>Edit Profile</h2>
+          <div style="width: 24px;"></div> <!-- Spacer -->
+        </div>
+      </header>
+
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. John Doe">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="e.g. john@email.com">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" placeholder="e.g. +1 555 0123">
+        </div>
+        <div class="form-group">
+          <label for="skills">Skills</label>
+          <textarea id="skills" rows="2" placeholder="e.g. React, Node..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="experience">Experience / Bio</label>
+          <textarea id="experience" rows="3" placeholder="Paste your bio or cover letter..."></textarea>
+        </div>
+
+        <button type="submit" class="c-button success">Save Changes</button>
+      </form>
+    </div>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+
+</html>
